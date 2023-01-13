@@ -1,0 +1,63 @@
+@import "~@angular/cdk/overlay-prebuilt.css";
+
+.card-block {
+    min-height: 200px;
+}
+
+#picture{
+    width: 106px;
+  height: 106px;
+  display: flex;
+  background-color: #999999;
+  border: 4px solid #cccccc;
+  color: #ffffff;
+  border-radius: 50%;
+  margin: 5px auto;
+  overflow: hidden;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+.inner{
+    margin-left: 25%;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  
+}
+
+.dateinput{
+    color:#cccccc;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    opacity: 0;
+    }
+    
+.edit_logo{
+    position: absolute;
+    left: 90%;
+    top:80%;
+    z-index: -1;
+}
+
+.overlay{
+    position: absolute;
+    left:0;
+    top:38px;
+    z-index:2;
+}
+
+.levitation{
+position: absolute;
+left:90%;
+top:80%;
+
+}
+
+#addicon{
+    position: absolute;
+    left: 20%;
+    top: 40%;
+}
+      

@@ -1,0 +1,55 @@
+<div  class="bg-transparent" style="margin-top: 20px;margin-left: 20px;margin-right: 20px;margin-bottom: 20px;">
+<div class="example-header-image" mat-card-avatar></div>
+<span mat-dialog-close style="float:right;margin-top:-10px;margin-right:0px;"><i class="fa fa-window-close text-primary" aria-hidden="true"></i></span>
+<!-- <img src="assets/images/event.jpg" style=" position: absolute;
+left: 48%;
+top: 10%;
+width: 55px;height: 50px;"> -->
+<span class="text-primary" style="margin-left: 10px;font-size: large;">Meeting Details</span>
+<hr style="color:blue;">
+<table>
+    <tr>
+        <td>Title</td>
+        <td class="text-primary">{{title}}</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td class="text-primary">{{description}}</td>
+    </tr>
+    <tr>
+        <td>Meeting start at</td>
+        <td class="text-primary">{{start_time}}</td>
+    </tr>
+    <tr>
+        <td>Approximatly end at &nbsp;&nbsp;&nbsp;</td>
+        <td class="text-primary">{{approximated_end_time}}</td>
+    </tr>
+    <!-- <tr>
+        <td>Attendees</td>
+        <td>
+            <div *ngFor="let attendee of attendees">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{attendee.name}}<span> (</span>{{attendee.teamname}}<span>)</span></li>
+                </ul>
+            </div>
+        </td>
+    </tr> -->
+</table>
+<hr style="color:blue;">
+<fieldset>
+    <legend class="w-auto" style="margin-top: -10px;font-size: 15px;">Attendees</legend>
+<div *ngFor="let attendee of attendees" style="margin-top: 5px;margin-left: 50px;" id="fieldsetborder">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span style="color:blue;margin-right: 3px;"><i class="fa fa-user"></i></span><span style="color:blue;">{{attendee.uname}}</span><span> (</span><span style="color:blue;">{{attendee.teamName}}</span><span>)</span></li>
+    </ul>
+</div>
+</fieldset>
+<div class="footer">
+<span style="margin-top: 0px;float:left;">
+<span style="color:rgb(245, 71, 48);margin-right: 15px;" (click)="DisplayPopup()" id="btn_animate" mat-dialog-close>Delete <i class="fa fa-trash" id="btn_animate" style="color:rgb(245, 71, 48);font-size:15px;"></i></span>
+<span style="color:rgb(14, 143, 36);" id="btn_animate" mat-dialog-close> Update <i class="fa fa-pencil-square" style="color:rgb(14, 143, 36);" id="btn_animate"></i></span>
+</span>
+<span style="float:right;margin-right: 40px;"><Button mat-button mat-dialog-close class="btn btn-primary btn-sm" id="btn_animate">Cancel</Button></span>
+</div>
+</div>
+            

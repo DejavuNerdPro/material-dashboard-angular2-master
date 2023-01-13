@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <div class="form-outline">
+            <input type="search" id="form1" class="form-control" [(ngModel)]="searchText" (keyup)="isOpen = !isOpen"
+              cdkOverlayOrigin #trigger="cdkOverlayOrigin" placeholder="User Name" style="width: 20rem;height:38px;" />
+          </div>
+          <button type="button" class="btn btn-primary" (click)="isShow()">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+    </div>
+      <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        (overlayOutsideClick)="isOpen = false">
+        <div class="card-deck bg-transparent d-flex align-items-center" style="max-width: 20rem;" id="filterResultSearch">
+          <div class="card-body text-info">
+            <div class="card-deck bg-light p-2 shadow shadow-info shadow-intensity-lg rounded-3" style="margin-bottom: 5px;width: 20rem;margin-left: 10px;" *ngFor="let staff of optimizedSearchFiltering | appFilter: searchText;let i=index;" id="listText">
+              <img [src]="staff.userImage" width="50px" height="50px"/>
+              <span style="padding-left:5px;"></span><label style="font-style: bold;font-size: 13px;" id="staffName" (click)="getUsername('unorderList',i);">{{staff.username}}</label><span style="padding-left:5px;">(</span><label id="staffDepartment" style="font-size: 8px;">{{staff.departmentname}}</label>)
+            </div>   
+          </div>
+        </div>
+      </ng-template>
+
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-7"></div>
+      <div class="col-md-5">
+       
+          <Button class="btn btn-primary btn-sm" id="btn_animate" style="font-size:small;color:rgb(226, 70, 96);background-color:white;border-color: rgb(226, 70, 96);" (click)="removeAction()">Remove &nbsp;&nbsp;<i class="fa fa-user-times"></i></Button>
+          <Button class="btn btn-primary btn-sm" id="btn_animate" style="font-size:small;color:blue;background-color:white;border-color: rgb(106, 106, 248);margin-left: 5px;" (click)="previousfetch()">Prev Member</Button>
+          <span style="margin-left: 10px;margin-right: 5px;"><i class="fa fa-users"></i></span>
+          <button class="btn btn-primary btn-sm" id="btn_animate" style="font-size:small;color:blue;background-color:white;border-color: rgb(106, 106, 248);margin-left: 5px;" (click)="nextfetch()">Next Member</button>
+          
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" [ngStyle]="{'width': isDisplay? '50%':'100%'}">
+        <div [ngStyle]="{'width': isDisplay? 'auto':'100%'}" style="margin-top:8px">
+          <label id="dailyUserName" style="padding-left: 50px;font-size: 15px;color:rgb(37, 5, 75);"><i class="fa fa-address-book fa-lg"></i>  : {{currentLoginUsername}}</label><br>
+          <div style="margin-top:-20px;"><full-calendar #calendar [options]="calendarOptions" [deepChangeDetection]="true"></full-calendar></div>
+         </div>
+      </div>
+      <div class="col" *ngIf="isDisplay">
+        <div (change)="loadElement()">      
+      <label id="dailyUserName" style="padding-top:0px;padding-left: 50px;font-size: 15px;color:yellowgreen;"><i class="fa fa-address-book fa-lg"></i><label>  : </label>{{staffname}}</label>
+      <div style="margin-top:-20px;"><full-calendar #searchCalendar [options]="searchCalendarOptions" [deepChangeDetection]="true"></full-calendar></div>
+    
+      </div>
+      </div>
+    </div>
+  </div>
+

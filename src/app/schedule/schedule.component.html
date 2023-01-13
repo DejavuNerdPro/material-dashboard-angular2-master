@@ -1,0 +1,552 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Create Schedule</h4>
+            <p class="card-category">Here is a subtitle for this schedule</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                <div class="card">
+                  <!-- <div class="header">
+                      <h4 class="title">Create Schedule</h4>
+                    </div> -->
+                  <div class="content">
+                    <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+                      <!--------------- start-time start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="start" class="col-form-label"
+                              >Start</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <input
+                              type="date"
+                              #dateInput
+                              (change)="onChangeStart(dateInput.value)"
+                              min="{{ currentDate | date : 'yyyy-MM-dd' }}"
+                              class="form-control"
+                              formControlName="start"
+                              id="start"
+                              name="date"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select
+                              class="form-control mr-2"
+                              id="inputStartTimeHour"
+                              name="startHour"
+                              (click)="onSelectStartHour($event)"
+                            >
+                              <option disabled selected>Hour</option>
+
+                              <option
+                                class="time-option"
+                                *ngFor="let startHours of startHour"
+                                value="{{ startHours }}"
+                                [disabled]="shouldDisableHour(startHours)"
+                              >
+                                {{ startHours }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select
+                              class="form-control time-option"
+                              id="inputStartTimeMinute"
+                              name="startMinute"
+                              (click)="onSelectStartMin($event)"
+                            >
+                              <option disabled selected>Minute</option>
+
+                              <option
+                                class="time-option"
+                                *ngFor="let startMins of startMin"
+                                value="{{ startMins }}"
+                                [disabled]="shouldDisableMinute(startMins)"
+                              >
+                                {{ startMins }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- start-time end ------------------>
+
+                      <!--------------- end-time start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="end" class="col-sm-4 col-form-label"
+                              >End</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <input
+                              #dateInput1
+                              (change)="onChangeEnd(dateInput1.value)"
+                              min="{{ selectStartDate | date : 'yyyy-MM-dd' }}"
+                              type="date"
+                              class="form-control"
+                              id="end"
+                              name="date"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select
+                              class="form-control mr-2"
+                              id="inputEndTimeHour"
+                              name="endHour"
+                              (change)="onSelectEndHour($event)"
+                            >
+                              <option disabled selected>Hour</option>
+
+                              <option
+                                *ngFor="let startHours of startHour"
+                                value="{{ startHours }}"
+                                [disabled]="shouldDisableHourEnd(startHours)"
+                              >
+                                {{ startHours }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select
+                              class="form-control"
+                              id="inputEndTimeMinute"
+                              name="endMinute"
+                              (change)="onSelectEndMin($event)"
+                            >
+                              <option disabled selected>Minute</option>
+
+                              <option
+                                *ngFor="let startMins of startMin"
+                                value="{{ startMins }}"
+                                [disabled]="shouldDisableMinEnd(startMins)"
+                              >
+                                {{ startMins }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- end-time end ------------------>
+
+                      <!--------------- title start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="title" class="col-sm-4 col-form-label"
+                              >Title</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="title"
+                              [(ngModel)]="schedule.title"
+                              id="title"
+                              name="title"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- title end ------------------>
+
+                      <!--------------- description start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label
+                              for="description"
+                              class="col-sm-4 col-form-label"
+                              >Description</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="description"
+                              name="description"
+                              formControlName="description"
+                              [(ngModel)]="schedule.description"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- description end ------------------>
+
+                      <!--------------- attendees start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label
+                              for="attendees"
+                              class="col-sm-4 col-form-label"
+                              >Attendees</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <select
+                              class="form-control"
+                              id=""
+                              name=""
+                              (change)="onSelect($event)"
+                            >
+                              <option disabled selected>
+                                Select department
+                              </option>
+                              <option
+                                *ngFor="let departments of department"
+                                value="{{ departments.departmentId }}"
+                              >
+                                {{ departments.departmentName }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <select
+                              class="form-control"
+                              id=""
+                              name=""
+                              (change)="onSelect1($event)"
+                            >
+                              <option disabled selected>Select team</option>
+                              <option
+                                *ngFor="let teams of team"
+                                value="{{ teams.teamId }}"
+                              >
+                                {{ teams.teamName }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <select
+                              class="form-control"
+                              (change)="onSelect3($event)"
+                              name=""
+                              id="leftValues"
+                              size="5"
+                              multiple
+                            >
+                              <option disabled selected>selected member</option>
+
+                              <option
+                                *ngFor="
+                                  let preselectedMember of preselected;
+                                  let idx = idx
+                                "
+                                value="{{ preselectedMember.userId }}"
+                              >
+                                {{ preselectedMember.uname }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-1" style="float: left">
+                          <div>
+                            <button
+                              type="button"
+                              id="btnLeft"
+                              class="btn btn-secondary"
+                              (click)="shifting()"
+                            >
+                              &lt;&lt;
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              type="button"
+                              id="btnLeft"
+                              class="btn btn-secondary"
+                              (click)="un_shifting()"
+                            >
+                              &gt;&gt;
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <select
+                              (change)="onSelect2($event)"
+                              class="form-select form-control"
+                              multiple
+                              aria-label="multiple select example"
+                              id="members rightValues"
+                            >
+                              <option disabled selected>Select member</option>
+                              <option
+                                *ngFor="let members of member"
+                                value="{{ members.userId }}"
+                              >
+                                <!-- [disabled]="shouldDisableMember(members.userId)" -->
+                                {{ members.uname }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-4"></div>
+
+                        <div class="col-md-1" style="float: left">
+                          <div>
+                            <button
+                              type="button"
+                              id="btnLeft"
+                              class="btn btn-secondary"
+                              (click)="checkAvailable()"
+                            >
+                              check
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-md-7">
+                          <div class="form-group">
+                            <select
+                              (change)="onSelect4($event)"
+                              class="form-select form-control"
+                              multiple
+                              aria-label="multiple select example"
+                              id="members rightValues"
+                            >
+                              unavailableArr
+                              <option disabled selected>
+                                Unavailabled member
+                              </option>
+                              <option
+                                *ngFor="
+                                  let multiselectedUser of unavailableArr;
+                                  let index = index
+                                "
+                                value="{{ multiselectedUser.userId }}"
+                              >
+                                {{ multiselectedUser.uname }}
+                                <!-- <a (click)="removeSelectedUser(index)">remove</a> -->
+                              </option>
+                            </select>
+
+                            <!-- <span
+                                class="col-md-12 sch-div"
+                                *ngFor="
+                                  let multiselectedUser of unavailableArr;
+                                  let index = index
+                                "
+                                value="{{ multiselectedUser.userId }}"
+                              >
+                                <div class="col-md-10">
+                                  {{ multiselectedUser.uname }}
+                                </div>
+                                <div class="col-md-2">
+                                  <a (click)="removeSelectedUser(index)">remove</a>
+                                </div>
+                              </span> -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--------------- attendees end ------------------>
+
+                      <!--------------- privacy start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="privacy" class="col-sm-4 col-form-label"
+                              >Privacy</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <div
+                              class="form-check form-check-inline"
+                              style="float: left; margin-right: 50px"
+                            >
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="privacy"
+                                id="inlineRadio1"
+                                formControlName="privacy"
+                                [(ngModel)]="schedule.privacy"
+                                [value]="true"
+                              />
+                              <label class="form-check-label" for="inlineRadio1"
+                                >public</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="privacy"
+                                id="inlineRadio2"
+                                formControlName="privacy"
+                                [(ngModel)]="schedule.privacy"
+                                [value]="false"
+                              />
+                              <label class="form-check-label" for="inlineRadio2"
+                                >private</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- privacy end ------------------>
+
+                      <!--------------- file start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label
+                              for="validatedCustomFile"
+                              class="col-sm-4 col-form-label"
+                              >Attached</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <input
+                              (change)="saveFile($event)"
+                              type="file"
+                              class="custom-file-input"
+                              id="validatedCustomFile"
+                              required
+                              multiple="multiple"
+                            />
+
+                            <div *ngIf="errorMessage" class="error">
+                              {{ errorMessage }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4"></div>
+                      <div class="col-md-8">
+                        <span
+                          class="col-md-12 sch-div"
+                          *ngFor="let url of urls; let index = index"
+                        >
+                          <div class="col-md-10">
+                            {{ url }}
+                          </div>
+                          <div class="col-md-2">
+                            <!-- <input
+                                type="button"
+                                class="btn btn-info"
+                                (click)="removeSelectedFile(index)"
+                                value="remove"
+                              /> -->
+
+                            <a (click)="removeSelectedFile(index)">remove</a>
+                          </div>
+                        </span>
+                      </div>
+
+                      <!--------------- file end ------------------>
+
+                      <!--------------- place start ------------------>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="place" class="col-sm-4 col-form-label"
+                              >Place</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <select
+                              class="form-select form-control"
+                              aria-label="Default select example"
+                              (change)="onSelectPlace($event)"
+                            >
+                              <option disabled selected>
+                                Select meeting place
+                              </option>
+                              <option
+                                *ngFor="let departments of department"
+                                value="{{ departments.departmentName }}"
+                              >
+                                {{ departments.departmentName }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <!--------------- place end ------------------>
+
+                      <!--------------- button  ------------------>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <button
+                              type="reset"
+                              class="btn btn-fill btn-secondary btn-block mt-4"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <button
+                              type="submit"
+                              class="btn btn-fill btn-primary btn-block mt-4"
+                            >
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

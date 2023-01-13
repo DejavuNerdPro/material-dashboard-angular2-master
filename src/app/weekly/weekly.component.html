@@ -1,0 +1,170 @@
+<div class="main-content">
+    <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-6">
+        
+          <div class="input-group">
+            <div class="form-outline">
+              <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="isOpen=!isOpen;" placeholder="User name" style="width: 20rem; height: 38px;margin-top: 11px;">
+              <div class="overlay" *ngIf="isOpen">
+          <div class="card-deck bg-transparent d-flex align-items-center" style="max-width: 20rem;" id="filterResultSearch">
+            <div class="card-body text-info">
+              <div class="card-deck bg-light p-2 shadow shadow-info shadow-intensity-lg rounded-3" style="margin-bottom: 5px;width: 20rem;" *ngFor="let staff of optimizedSearchFiltering | appFilter:searchText;">
+                <img [src]="staff.userImage" width="50px" height="50px"/><span style="padding-left:5px;"></span><label style="font-style: bold;font-size: 13px;" id="staffName" (click)="getUsername('unorderList',i);">{{staff.username}}</label><span style="padding-left:5px;">(</span><label id="staffDepartment" style="font-size: 8px;">{{staff.departmentname}}</label>)
+              </div>   
+            </div>
+          </div>
+        </div>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="isShow()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          
+      </div>
+      <div class="col-md-6"></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6"></div>
+    <!-- <div class="col-md-6"> <div>
+      <input [(ngModel)]="dataFromPicker" ngbDatepicker #d="ngbDatepicker" type="text" class="dateinput">
+      <Button (click)="d.toggle()" type="button" class="btn btn-primary"><<</Button>
+      <Button (click)="previousProcess()" class="btn btn-info"><</Button>
+      <Button class="btn btn-outline-success" (click)="currentweek()">&nbsp;&nbsp;This Week&nbsp;&nbsp;</Button>
+      <Button (click)="nextProcess()" class="btn btn-info">></Button>
+            <Button (click)="d.toggle()" type="button" class="btn btn-primary">>></Button>
+            <input [(ngModel)]="dataFromPicker" ngbDatepicker #d="ngbDatepicker" type="text" class="dateinput">
+      
+      </div></div> -->
+  </div>
+  <div class="row">
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-2">
+          <div class="card card-block parent" style="margin: left 10px;">Member
+            <div id="picture">
+                        <img
+                        *ngIf="!isSetDefaultImage"
+                        [src]="profile"
+                        class="img-fluid"
+                        id="wizardPicturePreview"
+                        title=""
+                      />
+                      <img
+                        *ngIf="isSetDefaultImage"
+                        [src]="assets/img/mike.jpg"
+                        class="img-fluid"
+                        id="wizardPicturePreview"
+                        title=""
+                      />
+                        
+                        </div>
+                       <div class="inner">{{username}}<label>(</label>{{teamname}}<label>)</label></div><hr>
+                        <div><div class="inner"><a href="#">Daily</a>&nbsp;&nbsp;<a href="#">Weekly</a></div></div>
+          </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Monday
+            <hr>
+            <div class="levitation"><i class="fa fa-calendar" aria-hidden="true" style="color:#1B98E0A6;font-size:40px;"></i></div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Tueday
+            <hr>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Wednesday
+            <hr>
+          </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Thursday
+            <hr>
+          </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Friday
+            <hr>
+          </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Saturday
+            <hr>
+          </div>
+        </div>
+        <div class="col-2">
+            <div class="card card-block" style="margin: left 10px;">Sunday
+            <hr>
+          </div>
+        </div>
+        
+    </div>
+    <label>Searched Member :</label><hr style="background-color:red;margin-top: -10px;">
+    <div class="row flex-nowrap" *ngIf="isSearch">
+      <div class="col-2">
+        <div class="card card-block parent" style="margin: left 10px;">Member
+          <div id="picture">
+            <img
+            *ngIf="!isSetSearchDefaultImage"
+            [src]="searchProfile"
+            class="img-fluid"
+            id="wizardPicturePreview"
+            title=""
+          />
+          <img
+            *ngIf="isSetSearchDefaultImage"
+            src="assets/img/mike.jpg"
+            class="img-fluid"
+            id="wizardPicturePreview"
+            title=""
+          />
+                      
+                      </div>
+                      <div class="inner">{{searchUsername}}<label>(</label>{{searchTeamname}}<label>)</label></div>
+                     <hr>
+                      <div><div class="inner"><a href="#">Daily</a>&nbsp;&nbsp;<a href="#">Weekly</a></div></div>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Monday
+        <hr>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Tueday
+        <hr>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Wednesday
+        <hr>
+      </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Thursday
+        <hr>
+      </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Friday
+        <hr>
+      </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Saturday
+        <hr>
+      </div>
+    </div>
+    <div class="col-2">
+        <div class="card card-block" style="margin: left 10px;">Sunday
+        <hr>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>

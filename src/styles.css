@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+#btn_animate:active {
+    transform: translateY(3px);
+  }
+  ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+ }
+ .footer {
+    position:absolute;
+    bottom:0;
+    left:20px;
+    right: 20px;
+    width:100%;
+    height: 50px;
+  }

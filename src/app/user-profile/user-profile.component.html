@@ -1,0 +1,196 @@
+<div class="main-content" >
+  <div class="container-fluid">
+
+    <div class="row">
+          <div class="col-md-8" *ngIf="isEdit">
+              <div class="card">
+                <div  style="margin:20px 20px 20px 20px;">
+                  <div class="header">
+                      <h4 class="title">Edit Profile</h4>
+                  </div>
+                  <div class="content">
+                      <form [formGroup]="editInfo" (ngSubmit)="onSubmit()">
+                          <div class="row">
+                              
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>Username</label>
+                                      <input type="text" class="form-control" placeholder="Username" [value]="username" disabled>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Nick Name</label>
+                                      <input type="text" class="form-control" placeholder="Nick Name" (keyup)="getNickname(nn.value)" #nn>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Dept Name</label>
+                                      <input type="text" class="form-control" placeholder="Dept Name" value="Dept" disabled>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>Team Name</label>
+                                      <input type="text" class="form-control" placeholder="Team Name" [value]="team" disabled>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>Email</label>
+                                      <input type="email" class="form-control" placeholder="Email" [value]="mail" disabled>
+                                  </div>
+                              </div>
+                              
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-2"><label><i class="fa fa-facebook-square" style="color:#2ca8ff;font-size:40px;"></i></label></div>
+                                  <div class="col-md-8">
+                                      <div class="form-group">
+                                          <div class="form-group">
+                                      
+                                              <input type="text" class="form-control" placeholder="facebook link" (keyup)="facebookLink(flink.value)" #flink>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-2"><label><i class="fa fa-twitter" style="color:#2ca8ff;font-size:40px;"></i></label></div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                              <div class="form-group">
+                                          
+                                                  <input type="text" class="form-control" placeholder="twitter link" (keyup)="twitterLink(tlink.value)" #tlink>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-2"><label><i class="fa fa-google-plus-square" style="color:#2ca8ff;font-size:40px;"></i></label></div>
+                                          <div class="col-md-8">
+                                              <div class="form-group">
+                                                  <div class="form-group">
+                                              
+                                                      <input type="text" class="form-control" placeholder="google link" (keyup)="googleLink(glink.value)" #glink>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                              
+                              <!-- <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label><i class="fa fa-twitter" style="color:#2ca8ff;font-size:25px;"></i></label>
+                                      <input type="email" class="form-control" placeholder="twitter link" value="">
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label><i class="fa fa-google-plus-square" style="color:#2ca8ff;font-size:25px;"></i></label>
+                                      <input type="email" class="form-control" placeholder="google link" value="">
+                                  </div>
+                              </div> -->
+                              
+                          
+
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label>About Me</label>
+                                      <textarea rows="5" class="form-control" placeholder="Here can be your description" [value]="biography" (keyup)="onValueChange(txtarea.value)" #txtarea>{{biography}}</textarea>
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="submit" class="btn btn-info btn-fill pull-right" (click)="upload()">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4"  [ngStyle]="{
+            position: 'relative',
+            left: isEdit ? '10px' : '30%',
+            width: isEdit ? '25%' : '70%',
+            height: isEdit ? '50%' : '100%'
+          }">
+            <div (click)="edit()" style="position: absolute;top:0;left:80%;"><i class="fa fa-pencil" style="font-size: 20px;color:cyan;"></i><span [ngStyle]="{'color':'cyan','display':isEdit? '':''}">Edit</span></div>
+            <div class="card card-profile">
+                
+                    <div
+                    class="card wizard-card"
+                    data-color="orange"
+                    id="wizardProfile"
+                  >
+                    <!-- <input type="file" id="avatar-picture">
+                                  <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/> -->
+                    <div class="picture-container">
+                      <div class="picture">
+                        <img
+                          *ngIf="!isSetDefaultImage"
+                          [src]="showAtOnceProfile"
+                          class="img-fluid"
+                          id="wizardPicturePreview"
+                          title=""
+                        />
+                        <img
+                          *ngIf="isSetDefaultImage"
+                          src="assets/img/default-avatar.png"
+                          class="img-fluid"
+                          id="wizardPicturePreview"
+                          title=""
+                        />
+                        <div *ngIf="isEdit">
+                          <input
+                            type="file"
+                            id="wizard-picture"
+                            (change)="onFileSelected($event)"
+                          />
+                        </div>
+                      </div>
+                      <h6
+                        class="edit-picture"
+                        [ngStyle]="{ display: isEdit ? '' : 'none' }"
+                      >
+                        <i
+                          class="fa fa-camera"
+                          style="color: #2ca8ff; font-size: 25px"
+                        ></i>
+                      </h6>
+                    </div>
+                  </div>
+                    
+                        <!-- <img *ngIf="!isSetDefaultImage" [src]="showAtOnceProfile" class="img-fluid" id="wizardPicturePreview" title=""/>
+                        <img *ngIf="isSetDefaultImage" src="assets/img/DAT.png" class="img-fluid" id="wizardPicturePreview" title=""/> 
+                        <div *ngIf="isEdit"><input type="file" id="wizard-picture" (change)='onFileSelected($event)'></div>
+                     -->
+                
+                <div class="card-body">
+                    <h6 class="card-category text-gray">{{username}}</h6>
+                    <h4 class="card-title">{{nickname}}</h4>
+                    <p class="card-description">
+                        {{biography}}
+                    </p>
+                    <hr>
+                  <div class="text-center">
+                    <a [href]="fbLink" style="cursor:pointer;"><i class="fa fa-facebook-square" style="color:blue;font-size: 15px;margin-right: 20px;"></i></a>
+                    <a [href]="ttLink"><i class="fa fa-twitter" style="color:blue;font-size: 15px;margin-right: 20px;"></i></a>
+                    <a [href]="ggLink"><i class="fa fa-google-plus-square" style="color:blue;font-size: 15px;margin-right: 20px;"></i></a>
+                </div>
+                </div>
+            </div>
+        </div>
+          
+      </div> 
+
+  </div>
+</div>
+
+
+
+
